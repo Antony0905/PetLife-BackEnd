@@ -12,4 +12,6 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Integer> {
 
 	List<Anuncio> findAll();
 
+	List<Anuncio> findByUserId(Integer userId);
+
 }

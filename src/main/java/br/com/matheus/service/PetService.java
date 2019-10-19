@@ -1,0 +1,38 @@
+package br.com.matheus.service;
+
+import java.text.ParseException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.matheus.domain.Pet;
+import br.com.matheus.repository.PetRepository;
+
+@Service
+public class PetService {
+
+	@Autowired
+	private PetRepository petRepository;
+
+	public void save(Pet pet) throws ParseException {
+
+		petRepository.save(pet);
+
+	}
+
+	public List<Pet> findAll() throws ParseException {
+
+		return petRepository.findAll();
+
+	}
+
+	public List<Pet> findByUserId(Integer userId) {
+		return petRepository.findByUserId(userId);
+	}
+
+	public void delete(Pet pet) {
+		petRepository.delete(pet);
+	}
+
+}

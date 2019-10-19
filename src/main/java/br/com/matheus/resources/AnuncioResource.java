@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,6 +64,51 @@ public class AnuncioResource {
 		} catch (Exception e) {
 			logger.info("Ocorreu erro ao recuperar anúncios. " + e);
 			return new ArrayList<Anuncio>();
+		}
+
+	}
+
+	@CrossOrigin(origins = "*")
+	@GetMapping(value = "/getAnunciosByUserId/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Anuncio> getAnunciosByUserId(@PathVariable("userId") Integer userId) {
+
+		logger.info("Resgatando todos os anuncios do userId: " + userId);
+
+		try {
+
+			if (userId == null) {
+				return new ArrayList<Anuncio>();
+			}
+
+			return anuncioService.findByUserId(userId);
+
+		} catch (Exception e) {
+			logger.info("Ocorreu erro ao recuperar anúncios. " + e);
+			return new ArrayList<Anuncio>();
+		}
+
+	}
+
+	@CrossOrigin(origins = "*")
+	@GetMapping(value = "/deleteAnuncio/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> deleteAnuncio(@PathVariable("id") Integer id) {
+
+		logger.info("Excluindo anuncio id: " + id);
+
+		try {
+
+			Anuncio anuncio = new Anuncio();
+			anuncio.setId(id);
+
+			anuncioService.delete(anuncio);
+			return new ResponseEntity<>(new Gson().toJson("Anuncio ID " + id + " excluído com sucesso!"),
+					HttpStatus.OK);
+
+		} catch (Exception e) {
+			logger.info("Ocorreu erro ao excluir o anúncio id. " + id + " ERROR: " + e);
+			return new ResponseEntity<>(new Gson().toJson("Ocorreu erro ao excluir anuncio ID " + id + " ERROR: " + e),
+					HttpStatus.BAD_REQUEST);
+
 		}
 
 	}

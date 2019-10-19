@@ -29,6 +29,8 @@ public class Anuncio implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
+	private Integer userId;
+
 	@NotNull(message = "Campo Titulo não pode ser Vazio!")
 	@NotEmpty
 	private String titulo;
@@ -37,33 +39,9 @@ public class Anuncio implements Serializable {
 	@NotEmpty
 	private String descricao;
 
-	@NotNull(message = "Campo CEP não pode ser Vazio!")
-	@NotEmpty
-	private String cep;
-
-	@NotNull(message = "Campo Logradouro não pode ser Vazio!")
-	@NotEmpty
-	private String logradouro;
-
-	@NotEmpty
-	private String complemento;
-
-	@NotNull(message = "Campo Bairro não pode ser Vazio!")
-	@NotEmpty
-	private String bairro;
-
-	@NotNull(message = "Campo Cidade não pode ser Vazio!")
-	@NotEmpty
-	private String cidade;
-
-	@NotNull(message = "Campo Estado não pode ser Vazio!")
-	@NotEmpty
-	private String estado;
-
-	@NotNull(message = "Campo Numero não pode ser Vazio!")
-	@NotEmpty
-	private String numero;
 	private Date dataCadastro;
+
+	private Double preco;
 
 	public Integer getId() {
 		return id;
@@ -97,60 +75,20 @@ public class Anuncio implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public String getCep() {
-		return cep;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
 }

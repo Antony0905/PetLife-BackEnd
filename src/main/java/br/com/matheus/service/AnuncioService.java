@@ -27,4 +27,12 @@ public class AnuncioService {
 
 	}
 
+	public List<Anuncio> findByUserId(Integer userId) {
+		return anuncioRepository.findByUserId(userId);
+	}
+
+	public void delete(Anuncio anuncio) {
+		anuncioRepository.delete(anuncio);
+	}
+
 }

@@ -5,10 +5,18 @@ import java.util.Date;
 
 public class UsuarioDTO {
 
+	private String nome;
 	private String email;
 	private String password;
-	private String nome;
 	private Date dataNascimento;
+	private Date dataCadastro;
+	private String cep;
+	private String logradouro;
+	private String complemento;
+	private String bairro;
+	private String cidade;
+	private String estado;
+	private String numero;
 
 	public String getEmail() {
 		return email;
@@ -42,6 +50,70 @@ public class UsuarioDTO {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
 	public String validarUsuarioDTO(UsuarioDTO user) {
 
 		String messages = "";
@@ -50,9 +122,7 @@ public class UsuarioDTO {
 
 		if (user.getEmail() == null || "".equals(user.getEmail())) {
 			messages = messages + "Campo EMAIL é obrigatório. ";
-		}
-
-		if (!user.getEmail().matches(regex)) {
+		} else if (!user.getEmail().matches(regex)) {
 			messages = messages + "Campo EMAIL está com formato incorreto. ";
 		}
 
@@ -66,6 +136,34 @@ public class UsuarioDTO {
 
 		if (user.getDataNascimento() == null) {
 			messages = messages + "O campo Data de Nacismento é obrigatório. ";
+		}
+		
+		if (user.getBairro() == null) {
+			messages = messages + "O campo Bairro é obrigatório. ";
+		}
+
+		if (user.getCep() == null) {
+			messages = messages + "O campo CEP é obrigatório. ";
+		}
+		
+		if (user.getCidade() == null) {
+			messages = messages + "O campo Cidade é obrigatório. ";
+		}
+		
+		if (user.getDataCadastro() == null) {
+			messages = messages + "O campo Data de Cadastro é obrigatório. ";
+		}
+		
+		if (user.getEstado() == null) {
+			messages = messages + "O campo Estado é obrigatório. ";
+		}
+		
+		if (user.getLogradouro() == null) {
+			messages = messages + "O campo Logradouro é obrigatório. ";
+		}
+		
+		if (user.getNumero() == null) {
+			messages = messages + "O campo Numero é obrigatório. ";
 		}
 
 		try {
