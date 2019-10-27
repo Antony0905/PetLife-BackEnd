@@ -38,6 +38,7 @@ public class Usuario implements Serializable {
 	private String cidade;
 	private String estado;
 	private String numero;
+	private Integer rate;
 
 	public Integer getId() {
 		return id;
@@ -141,6 +142,14 @@ public class Usuario implements Serializable {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+	public Integer getRate() {
+		return rate;
+	}
+
+	public void setRate(Integer rate) {
+		this.rate = rate;
 	}
 
 }

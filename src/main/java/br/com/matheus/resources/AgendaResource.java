@@ -40,8 +40,11 @@ public class AgendaResource {
 			agenda.setDataCadastro(new Date());
 			agendaRepository.save(agenda);
 
-			logger.info("Cadastro de Agenda realizado com sucesso");
-			return new ResponseEntity<>(new Gson().toJson("Cadastro de Agenda realizado com sucesso"), HttpStatus.OK);
+			logger.info("Serviço agendado com sucesso. Aguarde o passeador no seu endereço na data escolhida.");
+			return new ResponseEntity<>(
+					new Gson().toJson(
+							"Serviço agendado com sucesso. Aguarde o passeador no seu endereço na data escolhida."),
+					HttpStatus.OK);
 
 		} catch (Exception e) {
 			logger.info("Ocorreu erro ao cadastrar anúncio. " + e);
