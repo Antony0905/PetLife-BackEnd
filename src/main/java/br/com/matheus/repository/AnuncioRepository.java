@@ -10,8 +10,8 @@ import br.com.matheus.domain.Anuncio;
 @Repository
 public interface AnuncioRepository extends JpaRepository<Anuncio, Integer> {
 
-	List<Anuncio> findAll();
+	List<Anuncio> findAllByOrderByDataCadastroDesc();
 
-	List<Anuncio> findByUserId(Integer userId);
+	List<Anuncio> findByUserIdOrderById(Integer userId);
 
 }

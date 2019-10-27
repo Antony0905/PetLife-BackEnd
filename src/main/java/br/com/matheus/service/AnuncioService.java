@@ -2,6 +2,7 @@ package br.com.matheus.service;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +22,15 @@ public class AnuncioService {
 
 	}
 
-	public List<Anuncio> findAll() throws ParseException {
+	public List<Anuncio> findAll() throws Exception {
 
-		return anuncioRepository.findAll();
+		List<Anuncio> anuncios = anuncioRepository.findAllByOrderByDataCadastroDesc();
+		return anuncios.stream().filter(anuncio -> anuncio.getIsActive() == 1).collect(Collectors.toList());
 
 	}
 
 	public List<Anuncio> findByUserId(Integer userId) {
-		return anuncioRepository.findByUserId(userId);
+		return anuncioRepository.findByUserIdOrderById(userId);
 	}
 
 	public void delete(Anuncio anuncio) {

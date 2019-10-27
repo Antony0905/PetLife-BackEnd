@@ -33,4 +33,9 @@ public class UsuarioService {
 	public Usuario findFirstByEmail(String email) {
 		return usuarioRepository.findFirstByEmail(email);
 	}
+
+	public Usuario findUserById(Integer userId) {
+		return usuarioRepository.findFirstById(userId);
+
+	}
 }

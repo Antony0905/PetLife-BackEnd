@@ -87,4 +87,29 @@ public class UsuarioResource {
 		}
 
 	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/findUserById", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Usuario findUserById(@RequestBody Integer userId) {
+
+		logger.info("Buscando usuário por Id: " + userId);
+
+		try {
+
+			Usuario usuario = usuarioService.findUserById(userId);
+
+			if (usuario == null) {
+
+				logger.info("Nenhum usuário encontrado com o Id: " + userId);
+				return new Usuario();
+			}
+
+			return usuario;
+
+		} catch (Exception e) {
+			logger.info("Ocorreu erro ao buscar usuário pelo Id: . " + userId + e);
+			return new Usuario();
+		}
+
+	}
 }

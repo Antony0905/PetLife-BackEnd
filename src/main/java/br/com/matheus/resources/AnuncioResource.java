@@ -1,6 +1,7 @@
 package br.com.matheus.resources;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -39,6 +40,29 @@ public class AnuncioResource {
 
 		try {
 
+			anuncio.setIsActive(1);
+			anuncio.setDataCadastro(new Date());
+			anuncioService.save(anuncio);
+
+			logger.info("Cadastro de anúncio realizado com sucesso");
+			return new ResponseEntity<>(new Gson().toJson("Cadastro de anúncio realizado com sucesso"), HttpStatus.OK);
+
+		} catch (Exception e) {
+			logger.info("Ocorreu erro ao cadastrar anúncio. " + e);
+			return new ResponseEntity<>(new Gson().toJson("Ocorreu erro ao cadastrar anúncio. " + e), HttpStatus.OK);
+		}
+
+	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/updateAnuncio", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> updateAnuncio(@Valid @RequestBody Anuncio anuncio) {
+
+		logger.info("Cadastrando novo anúncio: " + anuncio);
+
+		try {
+
+			anuncio.setDataAtualizacao(new Date());
 			anuncioService.save(anuncio);
 
 			logger.info("Cadastro de anúncio realizado com sucesso");
