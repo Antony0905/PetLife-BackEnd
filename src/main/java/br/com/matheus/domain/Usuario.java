@@ -31,6 +31,7 @@ public class Usuario implements Serializable {
 	private String password;
 	private Date dataNascimento;
 	private Date dataCadastro;
+	private Date dataAtualizacao;
 	private String cep;
 	private String logradouro;
 	private String complemento;
@@ -150,6 +151,14 @@ public class Usuario implements Serializable {
 
 	public void setRate(Integer rate) {
 		this.rate = rate;
+	}
+
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
 	}
 
 }

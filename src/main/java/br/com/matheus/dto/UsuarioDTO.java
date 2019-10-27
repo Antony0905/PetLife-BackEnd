@@ -5,11 +5,13 @@ import java.util.Date;
 
 public class UsuarioDTO {
 
+	private Integer id;
 	private String nome;
 	private String email;
 	private String password;
 	private Date dataNascimento;
 	private Date dataCadastro;
+	private Date dataAtualizacao;
 	private String cep;
 	private String logradouro;
 	private String complemento;
@@ -17,6 +19,15 @@ public class UsuarioDTO {
 	private String cidade;
 	private String estado;
 	private String numero;
+	private Integer rate;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
@@ -114,6 +125,22 @@ public class UsuarioDTO {
 		this.numero = numero;
 	}
 
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public Integer getRate() {
+		return rate;
+	}
+
+	public void setRate(Integer rate) {
+		this.rate = rate;
+	}
+
 	public String validarUsuarioDTO(UsuarioDTO user) {
 
 		String messages = "";
@@ -137,7 +164,7 @@ public class UsuarioDTO {
 		if (user.getDataNascimento() == null) {
 			messages = messages + "O campo Data de Nacismento é obrigatório. ";
 		}
-		
+
 		if (user.getBairro() == null) {
 			messages = messages + "O campo Bairro é obrigatório. ";
 		}
@@ -145,23 +172,23 @@ public class UsuarioDTO {
 		if (user.getCep() == null) {
 			messages = messages + "O campo CEP é obrigatório. ";
 		}
-		
+
 		if (user.getCidade() == null) {
 			messages = messages + "O campo Cidade é obrigatório. ";
 		}
-		
+
 		if (user.getDataCadastro() == null) {
 			messages = messages + "O campo Data de Cadastro é obrigatório. ";
 		}
-		
+
 		if (user.getEstado() == null) {
 			messages = messages + "O campo Estado é obrigatório. ";
 		}
-		
+
 		if (user.getLogradouro() == null) {
 			messages = messages + "O campo Logradouro é obrigatório. ";
 		}
-		
+
 		if (user.getNumero() == null) {
 			messages = messages + "O campo Numero é obrigatório. ";
 		}
