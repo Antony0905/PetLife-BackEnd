@@ -30,7 +30,7 @@ public class AnuncioService {
 	}
 
 	public List<Anuncio> findByUserId(Integer userId) {
-		return anuncioRepository.findByUserIdOrderById(userId);
+		return anuncioRepository.findByUserIdOrderByIdDesc(userId);
 	}
 
 	public void delete(Anuncio anuncio) {

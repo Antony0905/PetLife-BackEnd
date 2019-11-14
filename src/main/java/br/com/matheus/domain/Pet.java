@@ -28,7 +28,7 @@ public class Pet implements Serializable {
 	private String idade;
 	private String peso;
 	private String raca;
-	private Integer pedigree;
+	private String petType;
 	private String descricao;
 
 	public Integer getId() {
@@ -71,14 +71,6 @@ public class Pet implements Serializable {
 		this.raca = raca;
 	}
 
-	public Integer getPedigree() {
-		return pedigree;
-	}
-
-	public void setPedigree(Integer pedigree) {
-		this.pedigree = pedigree;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -93,6 +85,14 @@ public class Pet implements Serializable {
 
 	public void setPeso(String peso) {
 		this.peso = peso;
+	}
+
+	public String getPetType() {
+		return petType;
+	}
+
+	public void setPetType(String petType) {
+		this.petType = petType;
 	}
 
 	public String validarPet(Pet pet) {

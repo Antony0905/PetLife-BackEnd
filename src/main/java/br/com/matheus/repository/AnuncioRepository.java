@@ -12,6 +12,6 @@ public interface AnuncioRepository extends JpaRepository<Anuncio, Integer> {
 
 	List<Anuncio> findAllByOrderByDataCadastroDesc();
 
-	List<Anuncio> findByUserIdOrderById(Integer userId);
+	List<Anuncio> findByUserIdOrderByIdDesc(Integer userId);
 
 }

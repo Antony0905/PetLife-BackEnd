@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table
@@ -27,14 +31,13 @@ public class Agenda implements Serializable {
 	private Integer clienteId;
 	private Integer petId;
 
+	private String userNameAnuncio;
 	private Date dataCadastro;
-	private Boolean segunda;
-	private Boolean terca;
-	private Boolean quarta;
-	private Boolean quinta;
-	private Boolean sexta;
-	private Boolean sabado;
-	private Boolean domingo;
+	private String serviceName;
+
+	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date data;
 
 	private String horario;
 
@@ -57,62 +60,6 @@ public class Agenda implements Serializable {
 
 	public void setAnuncioId(Integer anuncioId) {
 		this.anuncioId = anuncioId;
-	}
-
-	public Boolean getSegunda() {
-		return segunda;
-	}
-
-	public void setSegunda(Boolean segunda) {
-		this.segunda = segunda;
-	}
-
-	public Boolean getTerca() {
-		return terca;
-	}
-
-	public void setTerca(Boolean terca) {
-		this.terca = terca;
-	}
-
-	public Boolean getQuarta() {
-		return quarta;
-	}
-
-	public void setQuarta(Boolean quarta) {
-		this.quarta = quarta;
-	}
-
-	public Boolean getQuinta() {
-		return quinta;
-	}
-
-	public void setQuinta(Boolean quinta) {
-		this.quinta = quinta;
-	}
-
-	public Boolean getSexta() {
-		return sexta;
-	}
-
-	public void setSexta(Boolean sexta) {
-		this.sexta = sexta;
-	}
-
-	public Boolean getSabado() {
-		return sabado;
-	}
-
-	public void setSabado(Boolean sabado) {
-		this.sabado = sabado;
-	}
-
-	public Boolean getDomingo() {
-		return domingo;
-	}
-
-	public void setDomingo(Boolean domingo) {
-		this.domingo = domingo;
 	}
 
 	public String getFormaPagamento() {
@@ -177,6 +124,30 @@ public class Agenda implements Serializable {
 
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public String getUserNameAnuncio() {
+		return userNameAnuncio;
+	}
+
+	public void setUserNameAnuncio(String userNameAnuncio) {
+		this.userNameAnuncio = userNameAnuncio;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
 	}
 
 }

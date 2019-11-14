@@ -52,10 +52,6 @@ public class Anuncio implements Serializable {
 	private String horario2;
 	private String horario3;
 
-	private String horario1Disp;
-	private String horario2Disp;
-	private String horario3Disp;
-
 	private Integer expirationTime;
 
 	private Integer isActive;
@@ -194,30 +190,6 @@ public class Anuncio implements Serializable {
 
 	public void setHorario3(String horario3) {
 		this.horario3 = horario3;
-	}
-
-	public String getHorario1Disp() {
-		return horario1Disp;
-	}
-
-	public void setHorario1Disp(String horario1Disp) {
-		this.horario1Disp = horario1Disp;
-	}
-
-	public String getHorario2Disp() {
-		return horario2Disp;
-	}
-
-	public void setHorario2Disp(String horario2Disp) {
-		this.horario2Disp = horario2Disp;
-	}
-
-	public String getHorario3Disp() {
-		return horario3Disp;
-	}
-
-	public void setHorario3Disp(String horario3Disp) {
-		this.horario3Disp = horario3Disp;
 	}
 
 	public Integer getIsActive() {
