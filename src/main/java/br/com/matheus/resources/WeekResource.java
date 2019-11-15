@@ -26,7 +26,16 @@ public class WeekResource {
 		logger.info("Resgatando Current Week!");
 		Week week = new Week();
 		Date date2 = new Date();
+		
+		System.out.println("Date: " + date2);
+		
 		LocalDate date = new LocalDate(date2);
+		LocalDate date3 = new LocalDate();
+
+		System.out.println("LocalDate: " + date);
+		System.out.println("LocalDate new: " + date3);
+
+
 
 		try {
 
