@@ -1,5 +1,7 @@
 package br.com.matheus.resources;
 
+import java.util.Date;
+
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -23,7 +25,8 @@ public class WeekResource {
 
 		logger.info("Resgatando Current Week!");
 		Week week = new Week();
-		LocalDate date = new LocalDate();
+		Date date2 = new Date();
+		LocalDate date = new LocalDate(date2);
 
 		try {
 
