@@ -1,7 +1,5 @@
 package br.com.matheus.resources;
 
-import java.util.Date;
-
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -25,17 +23,8 @@ public class WeekResource {
 
 		logger.info("Resgatando Current Week!");
 		Week week = new Week();
-		Date date2 = new Date();
-		
-		System.out.println("Date: " + date2);
-		
-		LocalDate date = new LocalDate(date2);
-		LocalDate date3 = new LocalDate();
 
-		System.out.println("LocalDate: " + date);
-		System.out.println("LocalDate new: " + date3);
-
-
+		LocalDate date = new LocalDate();
 
 		try {
 
@@ -46,40 +35,48 @@ public class WeekResource {
 				LocalDate currentDate = LocalDate.parse(currentDateString, formatter);
 
 				String dayOfWeek = currentDate.dayOfWeek().getAsText();
-				
-				System.out.println("Time: " + i);
-				System.out.println("DayOfWeek: " + dayOfWeek);
-				System.out.println("currentDateString: " + currentDateString);
-				
-				System.out.println("Week: " + week );
 
 				switch (dayOfWeek) {
 				case "Domingo":
-
+					week.setSunday(currentDateString);
+					break;
+				case "Sunday":
 					week.setSunday(currentDateString);
 					break;
 				case "Segunda-feira":
-
+					week.setMonday(currentDateString);
+					break;
+				case "Monday":
 					week.setMonday(currentDateString);
 					break;
 				case "Terça-feira":
-
+					week.setTuesday(currentDateString);
+					break;
+				case "Tuesday":
 					week.setTuesday(currentDateString);
 					break;
 				case "Quarta-feira":
-
+					week.setWednesday(currentDateString);
+					break;
+				case "Wednesday":
 					week.setWednesday(currentDateString);
 					break;
 				case "Quinta-feira":
-
+					week.setThursday(currentDateString);
+					break;
+				case "Thursday":
 					week.setThursday(currentDateString);
 					break;
 				case "Sexta-feira":
-
+					week.setFriday(currentDateString);
+					break;
+				case "Friday":
 					week.setFriday(currentDateString);
 					break;
 				case "Sábado":
-
+					week.setSaturday(currentDateString);
+					break;
+				case "Saturday":
 					week.setSaturday(currentDateString);
 					break;
 				default:
