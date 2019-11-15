@@ -49,6 +49,9 @@ public class WeekResource {
 				
 				System.out.println("Time: " + i);
 				System.out.println("DayOfWeek: " + dayOfWeek);
+				System.out.println("currentDateString: " + currentDateString);
+				
+				System.out.println("Week: " + week );
 
 				switch (dayOfWeek) {
 				case "Domingo":
