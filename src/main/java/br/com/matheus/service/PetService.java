@@ -30,6 +30,10 @@ public class PetService {
 	public List<Pet> findByUserId(Integer userId) {
 		return petRepository.findByUserId(userId);
 	}
+	
+	public Pet findPetById(Integer petId) {
+		return petRepository.findPetById(petId);
+	}
 
 	public void delete(Pet pet) {
 		petRepository.delete(pet);

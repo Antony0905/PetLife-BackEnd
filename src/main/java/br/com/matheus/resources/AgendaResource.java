@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import br.com.matheus.domain.Agenda;
+import br.com.matheus.domain.Comentario;
+import br.com.matheus.dto.ServiceDTO;
 import br.com.matheus.repository.AgendaRepository;
+import br.com.matheus.repository.ComentarioRepository;
 
 @RestController
 public class AgendaResource {
@@ -31,6 +35,9 @@ public class AgendaResource {
 
 	@Autowired
 	private AgendaRepository agendaRepository;
+
+	@Autowired
+	private ComentarioRepository comentarioRepository;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/saveAgenda", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,14 +78,14 @@ public class AgendaResource {
 			agendas.stream().forEach(x -> {
 
 				String a = formatter.format(x.getData());
-				
+
 				try {
 					x.setData(formatter.parse(a));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			});
 
 			return agendas;
@@ -89,7 +96,7 @@ public class AgendaResource {
 		}
 
 	}
-	
+
 	@CrossOrigin(origins = "*")
 	@GetMapping(value = "/getAgendaByAnuncianteId/{clienteId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Agenda> getAgendaByAnuncianteId(@PathVariable("clienteId") Integer clienteId) {
@@ -104,14 +111,14 @@ public class AgendaResource {
 			agendas.stream().forEach(x -> {
 
 				String a = formatter.format(x.getData());
-				
+
 				try {
 					x.setData(formatter.parse(a));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			});
 
 			return agendas;
@@ -122,18 +129,29 @@ public class AgendaResource {
 		}
 
 	}
-	
+
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/finalizarAnuncio", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> finalizarAnuncio(@RequestBody String id) {
+	public ResponseEntity<Object> finalizarAnuncio(@RequestBody ServiceDTO service) {
 
-		logger.info("Finalizando compromisso na agenda ID: " + id);
+		logger.info("Finalizando compromisso na agenda ID: " + service.getAgendaId());
 
 		try {
 
-			Agenda agenda = agendaRepository.findById(Integer.parseInt(id));
+			Agenda agenda = agendaRepository.findById(Integer.parseInt(service.getAgendaId()));
 			agenda.setIsActive(false);
 			agendaRepository.save(agenda);
+
+			if (!StringUtils.isEmpty(service.getComentario())) {
+
+				Comentario comentario = new Comentario();
+				comentario.setUserId(Integer.parseInt(service.getAnuncianteId()));
+				comentario.setDataCadastro(new Date());
+				comentario.setComentario(service.getComentario());
+				
+				comentarioRepository.save(comentario);
+
+			}
 
 			logger.info("Encerramos seu compromisso com sucesso. Agradecemos por utilizar nossos serviços.");
 			return new ResponseEntity<>(

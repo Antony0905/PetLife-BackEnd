@@ -20,6 +20,8 @@ public class UsuarioDTO {
 	private String estado;
 	private String numero;
 	private Integer rate;
+	private Integer ddd;
+	private Integer telefone;
 
 	public Integer getId() {
 		return id;
@@ -139,6 +141,22 @@ public class UsuarioDTO {
 
 	public void setRate(Integer rate) {
 		this.rate = rate;
+	}
+
+	public Integer getDdd() {
+		return ddd;
+	}
+
+	public void setDdd(Integer ddd) {
+		this.ddd = ddd;
+	}
+
+	public Integer getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(Integer telefone) {
+		this.telefone = telefone;
 	}
 
 	public String validarUsuarioDTO(UsuarioDTO user) {

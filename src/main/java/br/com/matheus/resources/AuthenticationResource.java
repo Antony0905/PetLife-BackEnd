@@ -30,7 +30,7 @@ public class AuthenticationResource {
 		logger.info("___________Authentication area___________");
 		try {
 
-			Usuario usuario = usuarioService.findFirstByEmailAndPassword(auth.getEmail().toUpperCase(),
+			Usuario usuario = usuarioService.findFirstByEmailAndPassword(auth.getEmail().toLowerCase(),
 					auth.getPassword());
 
 			if (usuario != null) {

@@ -1,5 +1,8 @@
 package br.com.matheus.resources;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +10,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import br.com.matheus.domain.Pet;
 import br.com.matheus.domain.Usuario;
 import br.com.matheus.dto.UsuarioDTO;
+import br.com.matheus.service.PetService;
 import br.com.matheus.service.UsuarioService;
+import br.com.matheus.utils.StringFormatter;
 
 @RestController
 public class UsuarioResource {
@@ -24,6 +32,9 @@ public class UsuarioResource {
 
 	@Autowired
 	private UsuarioService usuarioService;
+
+	@Autowired
+	private PetService petService;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/registrar", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,8 +50,8 @@ public class UsuarioResource {
 				return new ResponseEntity<>(new Gson().toJson(messages), HttpStatus.BAD_REQUEST);
 			}
 
-			user.setEmail(user.getEmail().toUpperCase());
-			user.setNome(user.getNome().toUpperCase());
+			user.setEmail(user.getEmail().toLowerCase());
+			user.setNome(StringFormatter.capitalizeWord(user.getNome()));
 			Usuario usuario = usuarioService.findFirstByEmail(user.getEmail());
 
 			if (usuario == null) {
@@ -77,8 +88,8 @@ public class UsuarioResource {
 				return new ResponseEntity<>(new Gson().toJson(messages), HttpStatus.BAD_REQUEST);
 			}
 
-			user.setEmail(user.getEmail().toUpperCase());
-			user.setNome(user.getNome().toUpperCase());
+			user.setEmail(user.getEmail().toLowerCase());
+			user.setNome(StringFormatter.capitalizeWord(user.getNome()));
 
 			usuarioService.save(user);
 
@@ -101,7 +112,7 @@ public class UsuarioResource {
 
 		try {
 
-			Usuario usuario = usuarioService.findFirstByEmail(email.toUpperCase());
+			Usuario usuario = usuarioService.findFirstByEmail(email.toLowerCase());
 
 			if (usuario == null) {
 
@@ -142,4 +153,43 @@ public class UsuarioResource {
 		}
 
 	}
+
+	@CrossOrigin(origins = "*")
+	@GetMapping(value = "/findUserAndPetById/{userId}/{petId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> findUserAndPetById(@PathVariable("userId") Integer userId, @PathVariable("petId") Integer petId) {
+	
+		logger.info("Buscando anunciante Id: " + userId + " e Pet id " + petId);
+
+		Map<String, Object> anunciantePet = new HashMap<>();
+
+		try {
+
+			Usuario usuario = usuarioService.findUserById(userId);
+
+			if (usuario == null) {
+
+				logger.info("Nenhum usuário encontrado com o Id: " + userId);
+				usuario = new Usuario();
+			}
+
+			Pet pet = petService.findPetById(petId);
+
+			if (pet == null) {
+
+				logger.info("Nenhum pet encontrado com o Id: " + petId);
+				pet = new Pet();
+			}
+
+			anunciantePet.put("pet", pet);
+			anunciantePet.put("anunciante", usuario);
+
+			return anunciantePet;
+
+		} catch (Exception e) {
+			logger.info("Ocorreu erro ao buscar usuário pelo Id: . " + userId + e);
+			return anunciantePet;
+		}
+
+	}
+
 }
