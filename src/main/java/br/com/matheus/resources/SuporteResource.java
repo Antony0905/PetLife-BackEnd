@@ -48,15 +48,15 @@ public class SuporteResource {
 			Suporte suporte = new Suporte();
 
 			suporte.setAgendaId(Integer.parseInt(service.getAgendaId()));
-			suporte.setAnuncianteId(Integer.parseInt(service.getAnuncianteId()));
 			suporte.setDescricao(service.getComentario());
 
 			Agenda agenda = agendaRepository.findById(Integer.parseInt(service.getAgendaId()));
 			Usuario user = usuarioService.findUserById(agenda.getClienteId());
-			Usuario anunciante = usuarioService.findUserById(agenda.getAnuncianteId());
 
-			suporte.setAnuncianteEmail(anunciante.getEmail());
-			suporte.setUserEmail(user.getEmail());
+			suporte.setAnuncianteId(agenda.getAnuncianteId());
+
+			suporte.setUserReported(service.getUserReported());
+			suporte.setUserReporter(service.getUserReporter());
 			suporte.setUserId(user.getId());
 
 			suporte.setDataCadastro(new Date());

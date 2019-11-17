@@ -24,9 +24,11 @@ import com.google.gson.Gson;
 
 import br.com.matheus.domain.Agenda;
 import br.com.matheus.domain.Comentario;
+import br.com.matheus.domain.Usuario;
 import br.com.matheus.dto.ServiceDTO;
 import br.com.matheus.repository.AgendaRepository;
 import br.com.matheus.repository.ComentarioRepository;
+import br.com.matheus.service.UsuarioService;
 
 @RestController
 public class AgendaResource {
@@ -38,6 +40,9 @@ public class AgendaResource {
 
 	@Autowired
 	private ComentarioRepository comentarioRepository;
+
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/saveAgenda", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -142,13 +147,16 @@ public class AgendaResource {
 			agenda.setIsActive(false);
 			agendaRepository.save(agenda);
 
+			Usuario user = usuarioService.findUserById(agenda.getClienteId());
+
 			if (!StringUtils.isEmpty(service.getComentario())) {
 
 				Comentario comentario = new Comentario();
 				comentario.setUserId(Integer.parseInt(service.getAnuncianteId()));
 				comentario.setDataCadastro(new Date());
 				comentario.setComentario(service.getComentario());
-				
+				comentario.setClientName(user.getNome());
+
 				comentarioRepository.save(comentario);
 
 			}

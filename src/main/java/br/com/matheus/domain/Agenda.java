@@ -32,6 +32,8 @@ public class Agenda implements Serializable {
 	private Integer petId;
 
 	private String userNameAnuncio;
+	private String userNameCliente;
+
 	private Date dataCadastro;
 	private String serviceName;
 
@@ -148,6 +150,14 @@ public class Agenda implements Serializable {
 
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
+	}
+
+	public String getUserNameCliente() {
+		return userNameCliente;
+	}
+
+	public void setUserNameCliente(String userNameCliente) {
+		this.userNameCliente = userNameCliente;
 	}
 
 }

@@ -25,8 +25,8 @@ public class Suporte implements Serializable {
 	private Integer agendaId;
 	private Integer anuncianteId;
 	private Integer userId;
-	private String userEmail;
-	private String anuncianteEmail;
+	private String userReporter;
+	private String userReported;
 	private String descricao;
 	private String resolucao;
 	private Date dataCadastro;
@@ -87,20 +87,20 @@ public class Suporte implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public String getUserReporter() {
+		return userReporter;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUserReporter(String userReporter) {
+		this.userReporter = userReporter;
 	}
 
-	public String getAnuncianteEmail() {
-		return anuncianteEmail;
+	public String getUserReported() {
+		return userReported;
 	}
 
-	public void setAnuncianteEmail(String anuncianteEmail) {
-		this.anuncianteEmail = anuncianteEmail;
+	public void setUserReported(String userReported) {
+		this.userReported = userReported;
 	}
 
 }

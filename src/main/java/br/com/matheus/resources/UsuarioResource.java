@@ -155,21 +155,29 @@ public class UsuarioResource {
 	}
 
 	@CrossOrigin(origins = "*")
-	@GetMapping(value = "/findUserAndPetById/{userId}/{petId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findUserAndPetById(@PathVariable("userId") Integer userId, @PathVariable("petId") Integer petId) {
-	
+	@GetMapping(value = "/findUserAndPetById/{userId}/{petId}/{clienteId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> findUserAndPetById(@PathVariable("userId") Integer userId,
+			@PathVariable("petId") Integer petId, @PathVariable("clienteId") Integer clienteId) {
+
 		logger.info("Buscando anunciante Id: " + userId + " e Pet id " + petId);
 
 		Map<String, Object> anunciantePet = new HashMap<>();
 
 		try {
 
-			Usuario usuario = usuarioService.findUserById(userId);
+			Usuario anunciante = usuarioService.findUserById(userId);
+			Usuario cliente = usuarioService.findUserById(clienteId);
 
-			if (usuario == null) {
+			if (cliente == null) {
+
+				logger.info("Nenhum cliente encontrado com o Id: " + clienteId);
+				cliente = new Usuario();
+			}
+
+			if (anunciante == null) {
 
 				logger.info("Nenhum usuário encontrado com o Id: " + userId);
-				usuario = new Usuario();
+				anunciante = new Usuario();
 			}
 
 			Pet pet = petService.findPetById(petId);
@@ -181,7 +189,8 @@ public class UsuarioResource {
 			}
 
 			anunciantePet.put("pet", pet);
-			anunciantePet.put("anunciante", usuario);
+			anunciantePet.put("anunciante", anunciante);
+			anunciantePet.put("cliente", cliente);
 
 			return anunciantePet;
 

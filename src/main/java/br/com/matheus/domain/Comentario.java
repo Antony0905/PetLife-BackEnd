@@ -25,6 +25,7 @@ public class Comentario implements Serializable {
 	private Integer userId;
 	private String comentario;
 	private Date dataCadastro;
+	private String clientName;
 
 	public Integer getId() {
 		return id;
@@ -56,6 +57,14 @@ public class Comentario implements Serializable {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 
 }
