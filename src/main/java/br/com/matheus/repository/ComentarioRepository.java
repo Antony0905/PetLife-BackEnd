@@ -10,6 +10,6 @@ import br.com.matheus.domain.Comentario;
 @Repository
 public interface ComentarioRepository extends JpaRepository<Comentario, Integer> {
 
-	List<Comentario> findByUserIdOrderByDataCadastro(Integer userId);
+	List<Comentario> findByUserIdOrderByDataCadastroDesc(Integer userId);
 
 }
