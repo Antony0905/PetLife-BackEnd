@@ -63,6 +63,8 @@ public class ImageProfileResource {
 			}
 
 			logger.info(userImage.getBase64());
+			userImage.setBase64(userImage.getBase64().replace("\n", "").replace("\r", ""));
+			logger.info(userImage.getBase64());
 
 			return userImage;
 
