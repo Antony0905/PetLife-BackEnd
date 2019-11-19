@@ -34,7 +34,7 @@ public class ImageProfileResource {
 
 		try {
 
-			userImage.getBase64().replace("data:image/*;charset=utf-8", "data:image/jpg");
+			userImage.setBase64(userImage.getBase64().replace("data:image/*;charset=utf-8", "data:image/jpg"));
 			userImageRepository.save(userImage);
 
 			logger.info("Imagem salva com sucesso");
