@@ -26,6 +26,7 @@ public class Anuncio implements Serializable {
 	private Integer id;
 
 	private Integer userId;
+	private String userName;
 
 	@NotNull(message = "Campo Titulo não pode ser Vazio!")
 	@NotEmpty
@@ -206,6 +207,14 @@ public class Anuncio implements Serializable {
 
 	public void setExpirationTime(Integer expirationTime) {
 		this.expirationTime = expirationTime;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }
