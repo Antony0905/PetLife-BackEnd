@@ -100,7 +100,7 @@ public class ImageProfileResource {
 	}
 
 	@CrossOrigin(origins = "*")
-	@GetMapping(value = "/getPetImageByPetId/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/getPetImageByPetId/{petId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public PetImage getPetImageByPetId(@PathVariable("petId") Integer petId) {
 
 		logger.info("Resgatando imagem do petId: " + petId);
