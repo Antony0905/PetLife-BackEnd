@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import br.com.matheus.domain.PetImage;
 import br.com.matheus.domain.UserImage;
+import br.com.matheus.repository.PetImageRepository;
 import br.com.matheus.repository.UserImageRepository;
 
 @RestController
@@ -25,6 +27,9 @@ public class ImageProfileResource {
 
 	@Autowired
 	private UserImageRepository userImageRepository;
+
+	@Autowired
+	private PetImageRepository petImageRepository;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/saveUserImage", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,11 +67,56 @@ public class ImageProfileResource {
 				return userImage;
 			}
 
-			logger.info(userImage.getBase64());
 			userImage.setBase64(userImage.getBase64().replace("\n", "").replace("\r", ""));
-			logger.info(userImage.getBase64());
 
 			return userImage;
+
+		} catch (Exception e) {
+			logger.info("Ocorreu erro ao recuperar imagem. " + e);
+			throw e;
+		}
+
+	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping(value = "/savePetImage", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> savePetImage(@RequestBody PetImage petImage) {
+
+		logger.info("Salvando nova image do PetId: " + petImage.getPetId());
+
+		try {
+
+			petImage.setBase64(petImage.getBase64().replace("data:image/*;charset=utf-8", "data:image/jpg"));
+			petImageRepository.save(petImage);
+
+			logger.info("Imagem salva com sucesso");
+			return new ResponseEntity<>(new Gson().toJson("Imagem salva com sucesso"), HttpStatus.OK);
+
+		} catch (Exception e) {
+			logger.info("Ocorreu erro ao salvar imagem. " + e);
+			return new ResponseEntity<>(new Gson().toJson("Ocorreu erro ao salvar imagem. " + e), HttpStatus.OK);
+		}
+
+	}
+
+	@CrossOrigin(origins = "*")
+	@GetMapping(value = "/getPetImageByPetId/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public PetImage getPetImageByPetId(@PathVariable("petId") Integer petId) {
+
+		logger.info("Resgatando imagem do petId: " + petId);
+
+		try {
+
+			PetImage petImage = petImageRepository.findByPetId(petId);
+
+			if (petImage == null) {
+				petImage = new PetImage();
+				return petImage;
+			}
+
+			petImage.setBase64(petImage.getBase64().replace("\n", "").replace("\r", ""));
+
+			return petImage;
 
 		} catch (Exception e) {
 			logger.info("Ocorreu erro ao recuperar imagem. " + e);
