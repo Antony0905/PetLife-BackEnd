@@ -12,16 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
 import br.com.matheus.domain.Anuncio;
+import br.com.matheus.repository.AnuncioRepository;
 import br.com.matheus.service.AnuncioService;
 
 @RestController
@@ -31,6 +34,9 @@ public class AnuncioResource {
 
 	@Autowired
 	private AnuncioService anuncioService;
+
+	@Autowired
+	private AnuncioRepository anuncioRepository;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping(value = "/novoAnuncio", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -133,6 +139,32 @@ public class AnuncioResource {
 			return new ResponseEntity<>(new Gson().toJson("Ocorreu erro ao excluir anuncio ID " + id + " ERROR: " + e),
 					HttpStatus.BAD_REQUEST);
 
+		}
+
+	}
+
+	@CrossOrigin(origins = "*")
+	@GetMapping(value = { "/getAnunciosByCityAndService" }, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Anuncio> getAnunciosByCidadeAndServico(@RequestParam(value = "cidade", required = false) String cidade,
+			@RequestParam(value = "servico", required = false) String servico) {
+
+		logger.info("Resgatando todos os anuncios {{ Cidade: " + cidade + " Servico: " + servico + " }}");
+
+		try {
+
+			if (!(StringUtils.isEmpty(cidade)) && !(StringUtils.isEmpty(servico))) {
+				return anuncioRepository.findAnuncioByCityAndService(cidade, servico);
+			} else if (!(StringUtils.isEmpty(cidade))) {
+				return anuncioRepository.findAnuncioByCity(cidade);
+			} else if (!(StringUtils.isEmpty(servico))) {
+				return anuncioRepository.findAnuncioByService(servico);
+			} else {
+				return new ArrayList<Anuncio>();
+			}
+
+		} catch (Exception e) {
+			logger.info("Ocorreu erro ao recuperar anúncios. " + e);
+			return new ArrayList<Anuncio>();
 		}
 
 	}

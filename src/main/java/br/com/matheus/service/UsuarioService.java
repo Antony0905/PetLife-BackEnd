@@ -1,6 +1,7 @@
 package br.com.matheus.service;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,9 @@ public class UsuarioService {
 	public Usuario findUserById(Integer userId) {
 		return usuarioRepository.findFirstById(userId);
 
+	}
+
+	public List<String> getAllCities() {
+		return usuarioRepository.findAllCities();
 	}
 }

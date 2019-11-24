@@ -1,6 +1,9 @@
 package br.com.matheus.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.matheus.domain.Usuario;
@@ -13,5 +16,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	Usuario findFirstByEmail(String email);
 
 	Usuario findFirstById(Integer userId);
+
+	@Query(value="SELECT DISTINCT cidade FROM usuario", nativeQuery = true)
+	List<String> findAllCities();
 
 }

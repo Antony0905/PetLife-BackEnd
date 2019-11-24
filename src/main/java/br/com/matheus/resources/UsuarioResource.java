@@ -1,6 +1,8 @@
 package br.com.matheus.resources;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -197,6 +199,21 @@ public class UsuarioResource {
 		} catch (Exception e) {
 			logger.info("Ocorreu erro ao buscar usuário pelo Id: . " + userId + e);
 			return anunciantePet;
+		}
+
+	}
+
+	@CrossOrigin(origins = "*")
+	@GetMapping(value = "/getAllCities", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<String> getAllCities() {
+
+		try {
+
+			List<String> cities = usuarioService.getAllCities();
+			return cities;
+
+		} catch (Exception e) {
+			return new ArrayList<String>();
 		}
 
 	}
