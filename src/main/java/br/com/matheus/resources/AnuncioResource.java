@@ -152,7 +152,15 @@ public class AnuncioResource {
 
 		try {
 
-			if (!(StringUtils.isEmpty(cidade)) && !(StringUtils.isEmpty(servico))) {
+			if ("Todos".equals(cidade) || "Todos".equals(servico)) {
+				if ("Todos".equals(cidade) && "Todos".equals(servico)) {
+					return anuncioRepository.findAllByOrderByDataCadastroDesc();
+				} else if ("Todos".equals(cidade)) {
+					return anuncioRepository.findAnuncioByService(servico);
+				} else if ("Todos".equals(servico)) {
+					return anuncioRepository.findAnuncioByCity(cidade);
+				}
+			} else if (!(StringUtils.isEmpty(cidade)) && !(StringUtils.isEmpty(servico))) {
 				return anuncioRepository.findAnuncioByCityAndService(cidade, servico);
 			} else if (!(StringUtils.isEmpty(cidade))) {
 				return anuncioRepository.findAnuncioByCity(cidade);
@@ -166,6 +174,7 @@ public class AnuncioResource {
 			logger.info("Ocorreu erro ao recuperar anúncios. " + e);
 			return new ArrayList<Anuncio>();
 		}
+		return new ArrayList<Anuncio>();
 
 	}
 
